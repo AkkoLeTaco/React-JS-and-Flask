@@ -1,25 +1,46 @@
 import React from "react";
 import { useState } from "react";
+import { flux } from "../store/flux";
 
 export const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  fetch(
-    "https://3001-akkoletaco-reactjsandfl-8shcikde55i.ws-us44.gitpod.io/api/signup",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(email, password),
-    }
-  )
-    .then((response) => {
-      response.status === 200 ? setEmail(email) : "";
-    })
-    .catch((error) => console.log("error", error));
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [dob, setDob] = useState("");
 
   return (
     <form>
+      <div className="form-group">
+        <label for="exampleInputPassword1">First Name</label>
+        <input
+          type="text"
+          className="form-control"
+          id="exampleInputFirstname1"
+          placeholder="First name"
+          onChange={(e) => setFirstname(e.target.value)}
+        />
+      </div>
+      <div className="form-group">
+        <label for="exampleInputPassword1">Last Name</label>
+        <input
+          type="text"
+          className="form-control"
+          id="exampleInputLastname1"
+          placeholder="Last name"
+          onChange={(e) => setLastname(e.target.value)}
+        />
+      </div>
+      <div className="form-group">
+        <label for="exampleInputPassword1">Date of Birth</label>
+        <input
+          type="text"
+          className="form-control"
+          id="exampleInputLastname1"
+          placeholder="00/00/0000"
+          onChange={(e) => setDob(e.target.value)}
+        />
+      </div>
       <div className="form-group">
         <label for="exampleInputEmail1">Email address</label>
         <input
@@ -44,17 +65,13 @@ export const Signup = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <div className="form-group form-check">
-        <input
-          type="checkbox"
-          className="form-check-input"
-          id="exampleCheck1"
-        />
-        <label className="form-check-label" for="exampleCheck1">
-          Check me out
-        </label>
-      </div>
-      <button type="submit" className="btn btn-primary">
+      <button
+        type="submit"
+        className="btn btn-primary"
+        onClick={() => {
+          actions.create();
+        }}
+      >
         Submit
       </button>
     </form>
