@@ -13,7 +13,7 @@ from api.admin import setup_admin
 from api.commands import setup_commands
 
 #from models import Person
-
+from flask_jwt_extended import JWTManager
 ENV = os.getenv("FLASK_ENV")
 static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
 app = Flask(__name__)
@@ -27,6 +27,8 @@ else:
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/test.db"
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["JWT_SECRET_KEY"] = "super-secret"
+jwt = JWTManager(app)
 MIGRATE = Migrate(app, db, compare_type = True)
 db.init_app(app)
 

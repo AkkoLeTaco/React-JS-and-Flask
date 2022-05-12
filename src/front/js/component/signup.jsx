@@ -1,6 +1,4 @@
-import React from "react";
-import { useState } from "react";
-import { flux } from "../store/flux";
+import React, { useState, useContext } from "react";
 
 export const Signup = () => {
   const [email, setEmail] = useState("");
@@ -36,7 +34,7 @@ export const Signup = () => {
         <input
           type="text"
           className="form-control"
-          id="exampleInputLastname1"
+          id="exampleInputDob1"
           placeholder="00/00/0000"
           onChange={(e) => setDob(e.target.value)}
         />
@@ -68,8 +66,9 @@ export const Signup = () => {
       <button
         type="submit"
         className="btn btn-primary"
-        onClick={() => {
-          actions.create();
+        onClick={(e) => {
+          e.preventDefault();
+          actions.create(email, password, firstname, lastname, dob);
         }}
       >
         Submit

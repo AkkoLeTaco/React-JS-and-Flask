@@ -17,11 +17,28 @@ const getState = ({ getStore, getActions, setStore }) => {
     },
     actions: {
       // Use getActions to call a function within a fuction
-      create: () => {
+      create: (email, password, firstname, lastname, dob) => {
         fetch(process.env.BACKEND_URL + "/api/signup", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(email, password, firstname, lastname, dob),
+          body: JSON.stringify({
+            email: email,
+            password: password,
+            first_name: firstname,
+            last_name: lastname,
+            dob: dob,
+          }),
+          redirect: "follow",
+        })
+          .then((result) => console.log(result))
+          .catch((error) => console.log("error", error));
+      },
+
+      get_token: () => {
+        fetch(process.env.BACKEND_URL + "/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(),
           redirect: "follow",
         })
           .then((result) => console.log(result))
