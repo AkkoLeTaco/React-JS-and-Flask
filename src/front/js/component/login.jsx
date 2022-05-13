@@ -1,40 +1,43 @@
-import React from "react";
-import { useState } from "react/cjs/react.production.min";
+import React, { useState, useContext } from "react";
+import { Context } from "../store/appContext";
 
 export const Login = () => {
+  const { actions } = useContext(Context);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <form>
       <div className="form-group">
-        <label for="exampleInputEmail1">Email address</label>
+        <label htmlFor="exampleInputEmail1">Email address</label>
         <input
           type="email"
           className="form-control"
           id="exampleInputEmail1"
           aria-describedby="emailHelp"
+          onChange={(e) => setEmail(e.target.value)}
         />
         <small id="emailHelp" className="form-text text-muted">
           We'll never share your email with anyone else.
         </small>
       </div>
       <div className="form-group">
-        <label for="exampleInputPassword1">Password</label>
+        <label htmlFor="exampleInputPassword1">Password</label>
         <input
           type="password"
           className="form-control"
           id="exampleInputPassword1"
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <div className="form-group form-check">
-        <input
-          type="checkbox"
-          className="form-check-input"
-          id="exampleCheck1"
-        />
-        <label className="form-check-label" for="exampleCheck1">
-          Check me out
-        </label>
-      </div>
-      <button type="submit" className="btn btn-primary">
+      <div className="form-group form-check"></div>
+      <button
+        type="submit"
+        className="btn btn-primary"
+        onClick={(e) => {
+          e.preventDefault();
+          actions.logId(email, password);
+        }}
+      >
         Submit
       </button>
     </form>

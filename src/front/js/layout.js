@@ -5,6 +5,7 @@ import injectContext from "./store/appContext";
 import { Link } from "react-router-dom";
 import { Signup } from "./component/signup.jsx";
 import { Login } from "./component/login.jsx";
+import { Home } from "./component/home.jsx";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 
@@ -25,6 +26,9 @@ const Layout = () => {
             </Route>
             <Route exact path="/login">
               <Login />
+            </Route>
+            <Route exact path="/home">
+              <Home />
             </Route>
             <Route>
               <h1>Not found!</h1>

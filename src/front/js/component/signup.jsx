@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
+import { Context } from "../store/appContext";
 
 export const Signup = () => {
+  const { actions } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstname, setFirstname] = useState("");
@@ -10,7 +12,7 @@ export const Signup = () => {
   return (
     <form>
       <div className="form-group">
-        <label for="exampleInputPassword1">First Name</label>
+        <label htmlFor="exampleInputPassword1">First Name</label>
         <input
           type="text"
           className="form-control"
@@ -20,7 +22,7 @@ export const Signup = () => {
         />
       </div>
       <div className="form-group">
-        <label for="exampleInputPassword1">Last Name</label>
+        <label htmlFor="exampleInputPassword1">Last Name</label>
         <input
           type="text"
           className="form-control"
@@ -30,7 +32,7 @@ export const Signup = () => {
         />
       </div>
       <div className="form-group">
-        <label for="exampleInputPassword1">Date of Birth</label>
+        <label htmlFor="exampleInputPassword1">Date of Birth</label>
         <input
           type="text"
           className="form-control"
@@ -40,7 +42,7 @@ export const Signup = () => {
         />
       </div>
       <div className="form-group">
-        <label for="exampleInputEmail1">Email address</label>
+        <label htmlFor="exampleInputEmail1">Email address</label>
         <input
           type="email"
           className="form-control"
@@ -54,7 +56,7 @@ export const Signup = () => {
         </small>
       </div>
       <div className="form-group">
-        <label for="exampleInputPassword1">Password</label>
+        <label htmlFor="exampleInputPassword1">Password</label>
         <input
           type="password"
           className="form-control"
