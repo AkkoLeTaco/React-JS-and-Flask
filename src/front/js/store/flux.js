@@ -2,12 +2,14 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       message: null,
+      index: null,
     },
     actions: {
       // Use getActions to call a function within a fuction
       create: (email, password, firstname, lastname, dob) => {
         fetch(process.env.BACKEND_URL + "/api/signup", {
           method: "POST",
+          mode: "no-cors",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             email: email,
@@ -29,24 +31,26 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         fetch(process.env.BACKEND_URL + "/api/login", {
           method: "POST",
-          mode: "no-cors",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            user,
-          }),
+          body: JSON.stringify(user),
           redirect: "follow",
         })
+          .then((response) => response.json())
           .then((result) => console.log(result))
           .catch((error) => console.log("error", error));
       },
 
-      get_token: () => {
-        fetch(process.env.BACKEND_URL + "/api/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+      protect: (index) => {
+        fetch(process.env.BACKEND_URL + "/protected", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify(),
           redirect: "follow",
         })
+          .then((response) => response.json())
           .then((result) => console.log(result))
           .catch((error) => console.log("error", error));
       },

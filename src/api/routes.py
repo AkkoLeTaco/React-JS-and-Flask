@@ -22,17 +22,26 @@ def handle_hello():
     return jsonify(all_users)
 
 @api.route('/signup', methods=['POST'])
-def send_user():
+def post_user():
     request_body = request.get_json()
     new_user = User(email=request_body['email'], password=request_body['password'], first_name=request_body['first_name'], last_name=request_body['last_name'], dob=request_body['dob'])
     db.session.add(new_user)
     db.session.commit()
     return f"The new user {request_body['email']} was created sucessfully", 200
 
+@api.route('/signup', methods=['GET'])
+def send_user():
+    create_user = User.query.all()
+    signup_list = list(map(lambda x: x.serialize(), create_user))
+
+    return jsonify(signup_list), 200
+
+
 @api.route('/user/<int:user_id>', methods=['GET'])
 def one_user(user_id):
     user1 = User.query.get(user_id)
     return jsonify(user1.email), 200
+
 
 @api.route("/login", methods=["POST"])
 def login():
