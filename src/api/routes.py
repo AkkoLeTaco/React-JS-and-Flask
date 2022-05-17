@@ -66,4 +66,4 @@ def login():
 def protected():
     current_user = get_jwt_identity()
     user = User.query.filter_by(email=current_user).first()
-    return jsonify(logged_in_as=current_user), 200
+    return jsonify({"first_name": user.first_name, "email":user.email, "auth": True}), 200

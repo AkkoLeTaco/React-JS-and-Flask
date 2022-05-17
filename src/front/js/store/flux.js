@@ -3,6 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     store: {
       message: null,
       index: null,
+      user: null,
     },
     actions: {
       // Use getActions to call a function within a fuction
@@ -36,22 +37,20 @@ const getState = ({ getStore, getActions, setStore }) => {
           redirect: "follow",
         })
           .then((response) => response.json())
-          .then((result) => console.log(result))
+          .then((result) => getActions().protect(result.access_token))
           .catch((error) => console.log("error", error));
       },
 
-      protect: (index) => {
-        fetch(process.env.BACKEND_URL + "/protected", {
+      protect: (token) => {
+        fetch(process.env.BACKEND_URL + "/api/protected", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
           },
-          body: JSON.stringify(),
           redirect: "follow",
         })
           .then((response) => response.json())
-          .then((result) => console.log(result))
+          .then((result) => setStore({ user: result }))
           .catch((error) => console.log("error", error));
       },
       exampleFunction: () => {

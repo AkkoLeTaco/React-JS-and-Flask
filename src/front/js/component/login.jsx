@@ -1,12 +1,16 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
+import { useHistory } from "react-router-dom";
 
 export const Login = () => {
   const { actions } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState("");
+  const history = useHistory();
   return (
     <form>
+      {errors}
       <div className="form-group">
         <label htmlFor="exampleInputEmail1">Email address</label>
         <input
@@ -34,8 +38,13 @@ export const Login = () => {
         type="submit"
         className="btn btn-primary"
         onClick={(e) => {
-          e.preventDefault();
-          actions.logId(email, password);
+          if (email == "" && password == "") {
+            setErrors("email or password cannot be empty.");
+          } else {
+            e.preventDefault();
+            actions.logId(email, password);
+            history.push("/home");
+          }
         }}
       >
         Submit
