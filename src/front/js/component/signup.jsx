@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
+import { useHistory } from "react-router-dom";
 
 export const Signup = () => {
   const { actions } = useContext(Context);
@@ -8,6 +9,7 @@ export const Signup = () => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [dob, setDob] = useState("");
+  const history = useHistory();
 
   return (
     <form>
@@ -69,8 +71,19 @@ export const Signup = () => {
         type="submit"
         className="btn btn-primary"
         onClick={(e) => {
-          e.preventDefault();
-          actions.create(email, password, firstname, lastname, dob);
+          if (
+            email == "" &&
+            password == "" &&
+            dob == "" &&
+            firstname == "" &&
+            lastname == ""
+          ) {
+            setErrors("the fields cannot be empty.");
+          } else {
+            e.preventDefault();
+            actions.create(email, password, firstname, lastname, dob);
+            history.push("/login");
+          }
         }}
       >
         Submit

@@ -12,7 +12,12 @@ export const Navbar = () => {
         </Link>
         <div className="ml-auto">
           {store.user ? (
-            <button className="btn btn-primary" onClick={history.back()}>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                actions.logout();
+              }}
+            >
               Logout
             </button>
           ) : (

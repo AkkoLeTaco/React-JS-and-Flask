@@ -10,7 +10,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       create: (email, password, firstname, lastname, dob) => {
         fetch(process.env.BACKEND_URL + "/api/signup", {
           method: "POST",
-          mode: "no-cors",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             email: email,
@@ -52,6 +51,10 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((response) => response.json())
           .then((result) => setStore({ user: result }))
           .catch((error) => console.log("error", error));
+      },
+
+      logout: () => {
+        setStore({ user: null });
       },
       exampleFunction: () => {
         getActions().changeColor(0, "green");
