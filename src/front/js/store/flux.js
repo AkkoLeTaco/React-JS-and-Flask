@@ -3,7 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     store: {
       message: null,
       index: null,
-      user: null,
+      user: [],
     },
     actions: {
       // Use getActions to call a function within a fuction
